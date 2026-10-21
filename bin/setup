@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+require 'json'
+require 'fileutils'
+
+manifest_path = File.expand_path('../config/setup/base_system.json', __dir__)
+unless File.exist?(manifest_path)
+  puts "Installation manifest not found."
+  exit 1
+end
+
+manifest = JSON.parse(File.read(manifest_path))
+
+puts "=== [:Volundir] Starting Pre-Install Phase ==="
+(manifest['pre_install']['directories'] || []).each do |dir|
+  FileUtils.mkdir_p(dir)
+  puts "  [:Created] Directory: #{dir}"
+end
+
+puts "=== [:Volundir] Downloading Core Components ==="
+(manifest['core_components'] || []).each do |comp|
+  target = comp['target']
+  if Dir.exist?(target)
+    puts "  [:Ignored] #{comp['name']} already exists."
+  else
+    puts "  [:Clone] Downloading #{comp['name']}..."
+    system("git clone #{comp['source']} #{target}")
+  end
+end
+
+puts "=== [:Volundir] Starting Post-Install Phase ==="
+post = manifest['post_install'] || {}
+
+(post['permissions'] || []).each do |file|
+  File.chmod(0755, file) if File.exist?(file)
+  puts "  [:Permissions] +x applyed on #{file}"
+end
+
+puts "[:Volundir] installation completed successfully!"
