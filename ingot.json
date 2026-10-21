@@ -2,5 +2,5 @@
   "name": "volundir-ruby",
   "version": "0.0.1",
   "description": "[:Volundir][:Ruby] is a minimal set of Ruby tools and components for [:Volundir][:Apps].",
-  "dependencies": []
+  "dependencies": ["volundir-bash"]
 }
