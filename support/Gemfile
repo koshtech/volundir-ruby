@@ -7,6 +7,6 @@ group :development, :test do
   gem "ruby-lsp"
 end
 
-Dir[File.expand_path('ingots/*/support/Gemfile.inc.rb', __dir__)].each do |gemfile_part|
+Dir['Gemfile.inc.*.rb'].each do |gemfile_part|
   eval_gemfile(gemfile_part)
 end

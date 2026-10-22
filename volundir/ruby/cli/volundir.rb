@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'debug' if ['development', 'test'].include?(ENV['VOLUNDIR_ENV'])
-
 volundir_required 'base/ingot_base'
 volundir_required 'runtime/registry'
 
@@ -60,7 +58,7 @@ module Volundir
 
         ingot_class.send(help_command[:action], ingot_name, @command, @args, @registry)
       else
-        puts "Help system is unavailable (missing required 'volundir-help' ingot)."
+        puts "Help system is unavailable (missing required 'volundir-help-base' ingot)."
 
         exit 1
       end

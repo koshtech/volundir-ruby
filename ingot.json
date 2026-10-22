@@ -2,5 +2,37 @@
   "name": "volundir-ruby",
   "version": "0.0.1",
   "description": "[:Volundir][:Ruby] is a minimal set of Ruby tools and components for [:Volundir][:PWA].",
-  "dependencies": ["volundir-bash"]
+  "dependencies": ["volundir-bash"],
+  "install": {
+    "pre_install": {
+      "directories": []
+    },
+    "post_install": {
+      "copy": [
+        {
+          "source": "support/.ruby-gemset",
+          "destination": ".ruby-gemset"
+        },
+        {
+          "source": "support/.ruby-version",
+          "destination": ".ruby-version"
+        },
+        {
+          "source": "support/.volundir-ruby.development.env",
+          "destination": ".volundir-ruby.development.env"
+        },
+        {
+          "source": "support/Gemfile",
+          "destination": "Gemfile"
+        }
+      ],
+      "symlinks": [
+        {
+          "source": "bin/volundir_ruby.rb",
+          "destination": "bin/volundir"
+        }
+      ],
+      "permissions": ["bin/volundir_ruby.rb"]
+    }
+  }
 }
